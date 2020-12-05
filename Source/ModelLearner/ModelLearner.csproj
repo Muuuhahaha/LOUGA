@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9D2E7608-70AD-4C51-85B1-FABE6A6B0530}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModelLearner</RootNamespace>
+    <AssemblyName>ModelLearner</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FastColoredTextBox">
+      <HintPath>..\FastColoredTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\ARMS\ActionPair.cs" />
+    <Compile Include="Algorithms\ARMS\ARMS.cs" />
+    <Compile Include="Algorithms\ARMS\Clause.cs" />
+    <Compile Include="Algorithms\ARMS\Formula.cs" />
+    <Compile Include="Algorithms\ARMS\GSAT.cs" />
+    <Compile Include="Algorithms\ARMS\IClause.cs" />
+    <Compile Include="Algorithms\ARMS\IMaxSatSolver.cs" />
+    <Compile Include="Algorithms\ARMS\Literal.cs" />
+    <Compile Include="Algorithms\ARMS\MultiClause.cs" />
+    <Compile Include="Algorithms\ARMS\WalkSat.cs" />
+    <Compile Include="Algorithms\ILearningAlgorithm.cs" />
+    <Compile Include="Algorithms\LOCM2\Hypothesis.cs" />
+    <Compile Include="Algorithms\LOCM2\LOCM2Machine.cs" />
+    <Compile Include="Algorithms\LOCM2\ParameterInfo.cs" />
+    <Compile Include="Algorithms\LOCM2\TransitionInfo.cs" />
+    <Compile Include="Algorithms\LOCM2\TransitionMatrix.cs" />
+    <Compile Include="Algorithms\LOCM2\TransitionSet.cs" />
+    <Compile Include="Algorithms\LOCM\Hypothesis.cs" />
+    <Compile Include="Algorithms\LOCM\LOCMMachine.cs" />
+    <Compile Include="Algorithms\LOCM\ParameterInfo.cs" />
+    <Compile Include="Algorithms\LOCM\PartialStateMachine.cs" />
+    <Compile Include="Algorithms\LOCM\TransitionInfo.cs" />
+    <Compile Include="Algorithms\LOUGA\FitnessFunctions\IFitnessFunction.cs" />
+    <Compile Include="Algorithms\LOUGA\FitnessFunctions\IntegerErrorRateFunction.cs" />
+    <Compile Include="Algorithms\LOUGA\FitnessFunctions\IntegerErrorRateOfSinglePredicate.cs" />
+    <Compile Include="Algorithms\LOUGA\FitnessFunctions\IntegerPrefixTreeWrapper.cs" />
+    <Compile Include="Algorithms\LOUGA\GeneticAlgorithm.cs" />
+    <Compile Include="Algorithms\LOUGA\Individuals\IIndividual.cs" />
+    <Compile Include="Algorithms\LOUGA\Individuals\IndividualRepresenter.cs" />
+    <Compile Include="Algorithms\LOUGA\Individuals\IntegerIndividual.cs" />
+    <Compile Include="Algorithms\LOUGA\Individuals\IntegerIndividualRepresenter.cs" />
+    <Compile Include="Algorithms\LOUGA\LOUGA.cs" />
+    <Compile Include="Algorithms\LOUGA\LOUGAPredicateByPredicate.cs" />
+    <Compile Include="Algorithms\LOUGA\Policies\BestIndividualsLogger.cs" />
+    <Compile Include="Algorithms\LOUGA\Policies\IntegerRestartingPolicy.cs" />
+    <Compile Include="Algorithms\LOUGA\Policies\IPolicy.cs" />
+    <Compile Include="Algorithms\LOUGA\Policies\LocalSearchPolicy.cs" />
+    <Compile Include="Algorithms\LOUGA\Policies\SimpleCrossover.cs" />
+    <Compile Include="Algorithms\LOUGA\Policies\SimpleMutation.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OutputManager.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralPlanningLibrary\GeneralPlanningLibrary.csproj">
+      <Project>{B3EBF28A-1124-4A44-B095-8DDF76B40759}</Project>
+      <Name>GeneralPlanningLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

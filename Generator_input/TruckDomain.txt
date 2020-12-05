@@ -1,0 +1,43 @@
+(define (domain trucks)
+  (:requirements :typing)
+  (:types truck package location)
+  (:predicates 
+      (at ?thing - (either truck package) ?location - location)
+      (in ?package - package ?truck - truck)
+      (empty ?truck - truck)
+      )
+      
+  (:action move-loaded
+      :parameters (?truck - truck ?from ?to - location ?package - package)
+      :precondition (and (at ?truck ?from) (in ?package ?truck))
+      :effect (and (not (at ?truck ?from)) (at ?truck ?to))) 
+  (:action move-empty
+      :parameters (?truck - truck ?from ?to - location)
+      :precondition (and (at ?truck ?from) (empty ?truck) )
+      :effect (and (not (at ?truck ?from)) (at ?truck ?to))
+  ) 
+  (:action load
+      :parameters (?truck - truck ?place - location ?package - package)
+      :precondition (and (at ?truck ?place) (at ?package ?place) (empty ?truck) )
+      :effect (and (not (at ?package ?place)) (not (empty ?truck)) (in ?package ?truck))
+  ) 
+  (:action unload
+      :parameters (?truck - truck ?place - location ?package - package)
+      :precondition (and (at ?truck ?place) (in ?package ?truck))
+      :effect (and (not (in ?package ?truck)) (at ?package ?place) (empty ?truck))
+  ) 
+)
+
+(define (world truck-world)     
+   (:domain trucks)
+   (:objects t1 t2 t3 - truck p1 p2 p3 - package l1 l2 l3 l4 - location)
+   (:plan (:state 
+         (empty t1) (at t1 l1)
+         (in p1 t2) (at t2 l2) 
+         (empty t3) (at t3 l4)
+         
+         
+         (at p2 l1)
+         (at p3 l4)
+         
+     )))

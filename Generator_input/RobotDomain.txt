@@ -1,0 +1,108 @@
+(define (domain robots)
+  (:requirements :typing)
+  (:types robot object waste-dispenser container location)
+  (:predicates 
+      (disposed ?o - object)
+      (at ?t - (either robot waste-dispenser container) ?p - location)
+      (empty ?c - container)
+      (half-full ?c - container)
+      (full ?c - container)
+      (in ?o - object ?c - container)
+      (free ?r - robot)
+      (holding ?r - robot ?o - object)
+      (broken ?w - waste-dispenser))
+      
+  (:action pick-up-from-full
+      :parameters  (?o - object ?r - robot ?l - location ?c - container)
+      :precondition (and (free ?r) (full ?c) (in ?o ?c) (at ?r ?l) (at ?c ?l) (not (disposed ?o))) 
+      :effect (and (not (free ?r)) (holding ?r ?o) 
+                   (not (full ?c)) (half-full ?c)
+                   (not (in ?o ?c))))
+                   
+  (:action pick-up-from-half-full
+      :parameters  (?o - object ?r - robot ?l - location ?c - container)
+      :precondition (and (free ?r) (half-full ?c) (in ?o ?c) (at ?r ?l) (at ?c ?l) (not (disposed ?o))) 
+      :effect (and (not (free ?r)) (holding ?r ?o) 
+                   (not (half-full ?c)) (empty ?c)
+                   (not (in ?o ?c))))
+
+  (:action put-in-empty
+      :parameters  (?o - object ?r - robot ?l - location ?c - container)
+      :precondition (and (holding ?r ?o) (empty ?c) (at ?r ?l) (at ?c ?l)) 
+      :effect (and (not (holding ?r ?o)) (free ?r) 
+                   (not (empty ?c)) (half-full ?c)
+                   (in ?o ?c))) 
+                   
+  (:action put-in-half-full
+      :parameters  (?o - object ?r - robot ?l - location ?c - container)
+      :precondition (and (holding ?r ?o) (half-full ?c) (at ?r ?l) (at ?c ?l)) 
+      :effect (and (not (holding ?r ?o)) (free ?r) 
+                   (not (half-full ?c)) (full ?c)
+                   (in ?o ?c)))
+                   
+  (:action move-robot
+      :parameters  (?r - robot ?from ?to - location)
+      :precondition (and (not (= ?to ?from)) (at ?r ?from))
+      :effect (and (not (at ?r ?from))  (at ?r ?to)))
+      
+  (:action dispose
+      :parameters  (?r - robot ?o - object ?l - location ?w - waste-dispenser)
+      :precondition (and (holding ?r ?o) (not (broken ?w)) (at ?r ?l) (at ?w ?l)) 
+      :effect (and (not (holding ?r ?o)) (free ?r) (broken ?w) (disposed ?o)))
+      
+  (:action repair
+      :parameters  (?r - robot ?l - location ?w - waste-dispenser)
+      :precondition (and (free ?r) (broken ?w) (at ?r ?l) (at ?w ?l)) 
+      :effect (not (broken ?w))))
+      
+      
+(define (world robot-world)     
+   (:domain robots)
+   (:objects r1 r2 r3 - robot o1 o2 o3 o4 o5 o6 - object w1 w2 - waste-dispenser c1 c2 c3 - container l1 l2 l3 l4 l5 l6 - location)
+   (:plan (:state 
+         (free r1) (at r1 l1)
+         (holding r2 o1) (at r2 l5)
+         (holding r3 o2) (at r3 l4)
+         
+         (disposed o3)
+         (in o4 c1)
+         (in o5 c1)
+         (in o6 c3)
+         
+         (at w1 l1)
+         (at w2 l6) (broken w2)
+         
+         (at c1 l2) (full c1)
+         (at c2 l4) (empty c2)
+         (at c3 l2) (half-full c3) 
+     ))
+     (:plan (:state 
+         (free r1) (at r1 l5)
+         (free r2) (at r2 l5)
+         (free r3) (at r3 l6)
+         
+         (in o1 c2)
+         (in o2 c2) 
+         (disposed o3)
+         (in o4 c1)
+         (in o5 c1)
+         (in o6 c3)
+         
+         (at w1 l6)
+         (at w2 l6) (broken w2)
+         
+         (at c1 l6) (full c1)
+         (at c2 l2) (full c2)
+         (at c3 l1) (half-full c3) 
+     )))
+      
+      
+    
+       
+       
+  
+                   
+                   
+                   
+                                      
+                  

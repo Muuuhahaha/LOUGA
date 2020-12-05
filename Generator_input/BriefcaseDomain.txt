@@ -1,0 +1,58 @@
+(define (domain briefcase-world)
+	 (:requirements :strips :equality :typing :conditional-effects)
+	 (:types object place briefcase)
+	 (:predicates
+		(at ?thing - (either object briefcase) ?l - place)
+		(in ?thing - object ?b - briefcase)
+    (free ?thing - (either object briefcase))
+    (empty ?b - briefcase)
+    )
+	(:action mov
+		:parameters (?o - (either object briefcase) ?m - place ?l - place)
+		:precondition (and (free ?o) (at ?o ?m) (not (= ?m ?l)))
+		:effect (and (at ?o ?l) (not (at ?o ?m))))
+	(:action put-in
+		:parameters (?x - object ?l - place ?b - briefcase)
+		:precondition (and (at ?x ?l) (at ?b ?l) (empty ?b) (free ?x))
+		:effect (and (in ?x ?b) (not (empty ?b)) (not (free ?x)) (not (at ?x ?l))))
+	(:action take-out
+		:parameters (?x - object ?l - place ?b - briefcase)
+		:precondition (and (in ?x ?b) (at ?b ?l))
+		:effect (and (not (in ?x ?b)) (empty ?b) (free ?x) (at ?x ?l)))
+)
+
+(define (world briefcase-world) 
+    (:domain briefcase-world)
+  (:objects home office - place b1 b2 b3 b4 b5 - briefcase pencil rubber laptop o1 o2 - object)
+  (:plan (:state 
+        (empty b1) (at b1 home) (free b1)
+                   (at b2 office)
+        (empty b3) (at b3 office)
+                   (at b4 home) (free b4)
+                   (at b5 home) (free b5)
+       (free pencil) (at pencil home)
+                     (in rubber b2)
+       (free laptop) (at laptop home)
+                     (in o1 b4)
+                     (in o2 b5)
+        
+  )))
+
+(define (world briefcase-world2) 
+    (:domain briefcase-world)
+  (:objects home office bar p1 p2 - place b1 b2 b3 b4 b5 - briefcase pencil rubber laptop o1 o2 - object)
+  (:plan (:state 
+       (empty b1) (at b1 home) (free b1)
+                  (at b2 home) (free b2)
+       (empty b3) (at b3 office) (free b3)
+                  (at b4 home) (free b4)
+       (empty b5) (at b5 bar)
+       
+       (free pencil) (at pencil home)
+                     (in rubber b2)
+       (free laptop) (at laptop home)
+                     (in o1 b4)
+       (free o2) (at o2 bar)
+       
+        
+  )))
